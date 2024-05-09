@@ -5,7 +5,6 @@ CREATE TABLE `course` (
     `name` TEXT NOT NULL,
     `redit` INTEGER NOT NULL,
     `hours` INTEGER NOT NULL,
-    `teacherId` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -28,7 +27,6 @@ CREATE TABLE `student` (
     `s_id` TEXT NOT NULL,
     `name` TEXT NOT NULL,
     `gender` TEXT NOT NULL,
-    `classesId` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -40,7 +38,6 @@ CREATE TABLE `classes` (
     `name` TEXT NOT NULL,
     `remark` TEXT NOT NULL,
 
-    UNIQUE INDEX `classes_cl_id_key`(`cl_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -52,9 +49,3 @@ CREATE TABLE `relations` (
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- AddForeignKey
-ALTER TABLE `course` ADD CONSTRAINT `course_teacherId_fkey` FOREIGN KEY (`teacherId`) REFERENCES `teacher`(`t_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `student` ADD CONSTRAINT `student_classesId_fkey` FOREIGN KEY (`classesId`) REFERENCES `classes`(`cl_id`) ON DELETE CASCADE ON UPDATE CASCADE;
