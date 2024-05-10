@@ -13,30 +13,40 @@ export class StudentService {
     if (signal) {
       return '用户已存在'
     } else {
-      this.client.student.create({
+      await this.client.student.create({
         data: createStudentDto
       })
+      return "创建成功"
     }
   }
 
-  findAll() {
+  async findByName(name: string) {
     return this.client.student.findMany({
+      where: {
+        name
+      }
+    })
+  }
+
+  async findAll() {
+    return await this.client.student.findMany({
       where: {}
     })
   }
 
-  findOne(s_id: string) {
-    return this.client.student.findFirst({
+  async findOne(s_id: string) {
+    return await this.client.student.findFirst({
       where: {
         s_id: s_id
       }
     })
   }
 
-  async update(s_id: string, updateStudentDto: UpdateStudentDto) {
+  async update(updateStudentDto: UpdateStudentDto) {
+    const { s_id } = updateStudentDto
     const signal = await this.alreadyExist(s_id)
     if (!signal) return '学生不存在, 无法更新'
-    this.client.student.update({
+    await this.client.student.update({
       where: {
         id: signal.id,
         s_id
@@ -49,7 +59,7 @@ export class StudentService {
   async remove(s_id: string) {
     const signal = await this.alreadyExist(s_id)
     if (!signal) return '学生不存在, 无法删除'
-    this.client.student.delete({
+    await this.client.student.delete({
       where: {
         id: signal.id,
         s_id
@@ -59,6 +69,6 @@ export class StudentService {
   }
 
   async alreadyExist(s_id: string) {
-    return this.findOne(s_id)
+    return await this.findOne(s_id)
   }
 }
