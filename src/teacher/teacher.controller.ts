@@ -4,33 +4,49 @@ import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
 import { QueryTeacherByNameDto } from './dto/query-teacher.dto';
 import { DeleteTeacherByTidDto } from './dto/del-tid.dto';
+import { QueryClassListByTidDto } from './dto/query-classlist.dto';
 
 @Controller('teacher')
 export class TeacherController {
   constructor(private readonly teacherService: TeacherService) { }
 
+  /**
+   * 创建教师
+  */
   @Post()
-  create(@Body() createTeacherDto: CreateTeacherDto) {
-    return this.teacherService.create(createTeacherDto);
+  createTeacher(@Body() createTeacherDto: CreateTeacherDto) {
+    return this.teacherService.createTeacher(createTeacherDto);
   }
 
+  /**
+   * 获取全部教师
+  */
   @Get()
-  findAll() {
-    return this.teacherService.findAll();
+  getAllTeacher() {
+    return this.teacherService.getAllTeacher();
   }
 
+  /**
+   * 通过name查询教师信息
+  */
   @Post('/query')
-  query(@Body() queryDto: QueryTeacherByNameDto) {
-    return this.teacherService.findByName(queryDto);
+  queryByName(@Body() queryDto: QueryTeacherByNameDto) {
+    return this.teacherService.findTeacherByName(queryDto);
   }
 
+  /**
+   * 更新教师信息
+  */
   @Patch('/update')
-  update(@Body() updateTeacherDto: UpdateTeacherDto) {
-    return this.teacherService.update(updateTeacherDto);
+  updateTeacher(@Body() updateTeacherDto: UpdateTeacherDto) {
+    return this.teacherService.updateTeacher(updateTeacherDto);
   }
 
+  /**
+   * 删除教师
+  */
   @Delete('/delete')
-  remove(@Body() deleteTeacherDto: DeleteTeacherByTidDto) {
-    return this.teacherService.remove(deleteTeacherDto);
+  removeTeacher(@Body() deleteTeacherDto: DeleteTeacherByTidDto) {
+    return this.teacherService.removeTeacher(deleteTeacherDto);
   }
 }

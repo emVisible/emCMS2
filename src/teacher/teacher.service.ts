@@ -3,25 +3,34 @@ import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
 import { QueryTeacherByNameDto } from './dto/query-teacher.dto';
 import { DeleteTeacherByTidDto } from './dto/del-tid.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class TeacherService {
   constructor(private client: PrismaService) { }
-  async create(createTeacherDto: CreateTeacherDto) {
+  /**
+   * 创建教师
+  */
+  async createTeacher(createTeacherDto: CreateTeacherDto) {
     await this.client.teacher.create({
       data: createTeacherDto
     })
     return "创建成功"
   }
 
-  async findAll() {
+  /**
+   * 获取所有教师
+  */
+  async getAllTeacher() {
     return await this.client.teacher.findMany({
       where: {}
     })
   }
 
-  async findById(t_id: string) {
+  /**
+   * 通过t_id查询教师
+  */
+  async queryTeacherByTid(t_id: string) {
     return await this.client.teacher.findFirst({
       where: {
         t_id
@@ -29,7 +38,10 @@ export class TeacherService {
     })
   }
 
-  async findByName(queryDto: QueryTeacherByNameDto) {
+  /**
+   * 通过教师名查询教师
+  */
+  async findTeacherByName(queryDto: QueryTeacherByNameDto) {
     const { name } = queryDto
     return await this.client.teacher.findFirst({
       where: {
@@ -38,9 +50,12 @@ export class TeacherService {
     })
   }
 
-  async update(updateTeacherDto: UpdateTeacherDto) {
+  /**
+   * 更新教师信息
+  */
+  async updateTeacher(updateTeacherDto: UpdateTeacherDto) {
     const { t_id } = updateTeacherDto
-    const teacher = await this.findById(t_id)
+    const teacher = await this.queryTeacherByTid(t_id)
     await this.client.teacher.update({
       where: {
         id: teacher.id
@@ -50,10 +65,15 @@ export class TeacherService {
     return "教师信息更新成功"
   }
 
-  async remove(removeDto: DeleteTeacherByTidDto) {
+  /**
+   * 删除教师
+  */
+  async removeTeacher(removeDto: DeleteTeacherByTidDto) {
     const { t_id } = removeDto
+    const aim = await this.queryTeacherByTid(t_id)
     await this.client.teacher.delete({
       where: {
+        id: aim.id,
         t_id
       }
     })

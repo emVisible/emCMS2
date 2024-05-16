@@ -7,6 +7,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { TeacherModule } from './teacher/teacher.module';
 import { ClassesModule } from './classes/classes.module';
 import { CourseModule } from './course/course.module';
+import { RelationsModule } from './relations/relations.module';
 import app from './config/app';
 
 @Module({
@@ -19,7 +20,8 @@ import app from './config/app';
       load: [app]
     }),
     ClassesModule,
-    CourseModule
+    CourseModule,
+    RelationsModule
   ],
   controllers: [AppController],
   providers: [AppService],

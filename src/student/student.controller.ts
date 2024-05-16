@@ -4,6 +4,7 @@ import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { StudentNameDto } from './dto/query-name.dto';
 import { StudentSidDto } from './dto/del-sid.dto';
+import { QueryStudentClassListDto } from './dto/query-student-classlist.dto';
 
 @Controller('student')
 export class StudentController {
@@ -13,44 +14,52 @@ export class StudentController {
    * 创建学生
   */
   @Post()
-  create(@Body() createStudentDto: CreateStudentDto) {
-    return this.studentService.create(createStudentDto);
+  createStudent(@Body() createStudentDto: CreateStudentDto) {
+    return this.studentService.createStudent(createStudentDto);
   }
 
   /**
    * 根据名称查找学生
   */
   @Post('/query')
-  query(@Body() queryDto: StudentNameDto) {
+  queryStudentByName(@Body() queryDto: StudentNameDto) {
     const { name } = queryDto
     console.log('name', name)
-    return this.studentService.findByName(name);
+    return this.studentService.queryStudentByName(name);
   }
 
   /**
    * 查找全部学生
   */
   @Get()
-  findAll() {
-    return this.studentService.findAll();
+  getAllStudent() {
+    return this.studentService.getAllStudent();
   }
 
+  // /**
+  //  * 根据sid查询课表
+  // */
+  // @Post('/query/classlist')
+  // queryClassListBySid(@Body() dto: QueryStudentClassListDto) {
+  //   const { s_id } = dto
+  //   return this.studentService.queryClassListBySid(s_id);
+  // }
 
 
   /**
    * 更新学生信息
   */
   @Patch('/update')
-  update(@Body() updateStudentDto: UpdateStudentDto) {
-    return this.studentService.update(updateStudentDto);
+  updateStudent(@Body() updateStudentDto: UpdateStudentDto) {
+    return this.studentService.updateStudent(updateStudentDto);
   }
 
   /**
    * 删除学生
   */
   @Delete('/delete')
-  remove(@Body() deleteDto: StudentSidDto) {
+  removeStudent(@Body() deleteDto: StudentSidDto) {
     const { s_id } = deleteDto
-    return this.studentService.remove(s_id);
+    return this.studentService.removeStudent(s_id);
   }
 }
