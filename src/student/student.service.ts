@@ -67,18 +67,6 @@ export class StudentService {
     return await this.client.student.findMany({ where: { cl_id } })
   }
 
-  // /**
-  //  * 根据学生学号查询所选课程列表
-  // */
-  // async queryClassListBySid(s_id: string) {
-  //   const student = await this.queryStudentBySid(s_id)
-  //   console.log('🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹')
-  //   console.log(student)
-  //   console.log('🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹')
-  //   const cl_id = student.cl_id
-  //   return await this.courseService.filterCourseByClId(cl_id)
-  // }
-
   /**
    *  修改学生信息
   */

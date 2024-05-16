@@ -127,13 +127,12 @@ export class CourseService {
         }
       }
     })
-    allClasses.class_list.split(',').map(async (clId) => {
+    const classIds = allClasses.class_list.split(',')
+    for (const clId of classIds) {
       const tmp = await this.studentService.queryStudentsByClid(clId)
       res.push(...tmp)
-    })
-    console.log('🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹')
-    console.log(res)
-    console.log('🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹')
+    }
+    return res
   }
 
   /**
