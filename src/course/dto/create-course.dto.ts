@@ -4,4 +4,5 @@ export class CreateCourseDto {
   redit: number
   hours: number
   t_id?: string
+  class_list?:string
 }

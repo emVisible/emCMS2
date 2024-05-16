@@ -17,14 +17,15 @@ export class CourseService {
    * 创建课程
   */
   async createCourse(createCourseDto: CreateCourseDto) {
-    const { c_id, hours, name, redit, t_id } = createCourseDto
+    const { c_id, hours, name, redit, t_id, class_list } = createCourseDto
     await this.client.course.create({
       data: {
         c_id,
         hours,
         name,
         redit,
-        t_id
+        t_id,
+        class_list
       }
     })
     return "创建课程成功"
@@ -95,7 +96,7 @@ export class CourseService {
    * 根据教师id和课程name查询开课班级
   */
   async filterClassByTeacherIdAndCourseName(t_id: string, name: string) {
-    return this.client.course.findMany({
+    const res = await this.client.course.findMany({
       where: {
         AND: {
           t_id: {
@@ -107,6 +108,7 @@ export class CourseService {
         }
       }
     })
+    return res.map(cls => cls.class_list)
   }
 
   /**

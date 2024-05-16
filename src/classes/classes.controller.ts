@@ -9,8 +9,6 @@ import { QueryClassesStudentDto } from './dto/query-classes-student.dto';
 @Controller('classes')
 export class ClassesController {
   constructor(private readonly classesService: ClassesService) { }
-
-
   /**
    * 创建班级
   */
